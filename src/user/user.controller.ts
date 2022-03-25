@@ -10,7 +10,10 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Role } from '../role/role.decorator';
+import { RoleEnum } from '../role/role.enum';
 
+@Role(RoleEnum.MASTER)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
