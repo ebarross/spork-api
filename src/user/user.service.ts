@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { User, Role } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -8,7 +8,13 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: CreateUserDto): Promise<User> {
+  create(userDto: CreateUserDto): Promise<User> {
+    const data = {
+      name: userDto.name,
+      email: userDto.email,
+      password: userDto.password,
+      role: Role.MASTER,
+    };
     return this.prisma.user.create({ data });
   }
 
